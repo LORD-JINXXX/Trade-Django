@@ -1,0 +1,51 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Trade : Conversation</title>
+        <meta name="description" content="This is online buying and selling platform">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'style.css' %}">
+        
+    </head>
+    <body>
+        <div class="navbar">
+            <div class="nav-title">
+                <strong>Conversation | {{ conversation.item.name }}</strong>
+                <button class="home"><a href="{% url 'core:index' %}">Home</a></button>
+            </div>
+            
+        </div>
+
+        <div>
+            {% for message in conversation.messages.all %}
+                <div class="convo">
+                    <p class="msg"><strong>{{ message.created_by.username }} @ {{ message.created_at }}</strong></p>
+                    <p>{{ message.content }}</p>
+                </div>                 
+            {% endfor %}         
+        </div>
+
+        <footer class="footer">
+
+            <div class="about">
+                <h1>About</h1>
+                <p>This is the online buying and selling platform.</p>
+            </div>
+
+            <div class="menu">
+                <h3>Menu</h3>
+                <ul>
+                    <li>contact</li>
+                    <li>privacy and policy</li>
+                    <li>FAQ</li>
+                </ul>
+            </div>
+
+        </footer>
+    </body>
+</html>

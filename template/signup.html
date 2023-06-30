@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Trade : Sign Up</title>
+        <meta name="description" content="This is online buying and selling platform">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'style.css' %}">
+        
+    </head>
+    <body>
+        <div class="navbar">
+            
+            <div class="nav-title">
+                <strong>Sign Up</strong>
+                <button class="home"><a href="{% url 'core:index' %}">Home</a></button>
+            </div>
+            
+        </div>
+
+        <div class="signup-form">
+            <form class="suform" action="." method="post">
+            {% csrf_token %}    
+                <h3 class="formname">Signup Form</h3><br>
+
+                <label class="label" for="">Username</label>
+                <input class="input" type="text" id="username" name="username" placeholder="Create a username (only letters and numbers)" required><br>
+
+                <label class="label" for="">Email</label>
+                <input class="input" type="email" id="email" name="email" placeholder="Enter your email id" required><br>
+
+                <label class="label" for="">First Name</label>
+                <input class="input" type="text" id="fname" name="fname" placeholder="Enter your first name" required><br>
+
+                <label class="label" for="">Last Name</label>
+                <input class="input" type="text" id="lname" name="lname" placeholder="Enter your last name" required><br>
+
+                <label class="label" for="">Password</label>
+                <input class="input" type="password" id="pass1" name="pass1" placeholder="Create a password (only letters and numbers)" required><br>
+
+                <label class="label" for="">Confirm Password</label>
+                <input class="input" type="password" id="pass2" name="pass2" placeholder="Confirm your password" required><br>
+
+                <button class="subtn" type="submit">Sign Up</button>
+
+            </form>
+        </div>
+
+        <div class="alternative">
+            <p>
+                If you already have an account, please <button class="ibtn"><a href="{% url 'core:signin' %}">Sign In</a></button> here.
+            </p>
+        </div>
+
+        <footer class="footer">
+
+            <div class="about">
+                <h1>About</h1>
+                <p>This is the online buying and selling platform.</p>
+            </div>
+
+            <div class="menu">
+                <h3>Menu</h3>
+                <ul>
+                    <li><a href="{% url 'core:contact' %}">contact</a></li>
+                    <li>privacy and policy</li>
+                    <li>FAQ</li>
+                </ul>
+            </div>
+
+        </footer>
+    </body>
+</html>

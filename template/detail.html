@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Trade : {{ item.name }}</title>
+        <meta name="description" content="This is online buying and selling platform">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'style.css' %}">
+        
+    </head>
+    <body>
+        <div class="navbar">
+            
+            <div class="nav-title">
+                <strong>Item</strong>
+                <button class="home"><a href="{% url 'core:index' %}">Home</a></button>
+            </div>
+            
+        </div>
+
+        <div class="det-item">
+            <div class="ind-det-item">
+                <img class="image" src="{{ item.image.url }}">
+            </div>
+
+            <div class="ind-det-item">
+                <div class="ind-detail-item">
+                    <h1 class="iname">{{ item.name }}</h1>
+                    <p class="iprice"><strong>Price : {{ item.price }}</strong></p>
+                    <p class="iseller"><strong>Seller : {{ item.created_by }}</strong></p>
+
+                    {% if item.description %}
+                        <p class="idesc">
+                            <strong>Description : </strong>
+                            {{ item.description }}
+                        </p>
+                    {% endif %}
+
+                    {% if request.user == item.created_by %}
+                        <div>
+                            <p>This is your item!</p>
+
+                            <button class="ibtn"><a href="{% url 'item:delete' item.id %}">Delete</a></button>
+                            <button class="ibtn"><a href="{% url 'item:edit' item.id %}">Edit</a></button>
+                        </div>
+                    {% else %}
+                        <button class="ibtn"><a href="{% url 'conversation:new_conversation' item.id %}">Contact Seller</a></button>
+                    {% endif %}
+
+                    
+                </div>    
+            </div>
+        </div>
+
+        <div class="related-items">
+            <h1 class="related-items-main">Related Items</h1>
+            <div class="item">
+                {% for item in related_items %}
+                    <div class="individual-item">
+                        <a href="{% url 'item:detail' item.id %}">
+                            <div >
+                                <img class="image" src="{{ item.image.url }}" >
+                            </div>
+
+                            <div class="info">
+                                <h2>{{ item.name }}</h2>
+                                <p>Price : {{ item.price }}</p>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <footer class="footer">
+
+            <div class="about">
+                <h1>About</h1>
+                <p>This is the online buying and selling platform.</p>
+            </div>
+
+            <div class="menu">
+                <h3>Menu</h3>
+                <ul>
+                    <li>contact</li>
+                    <li>privacy and policy</li>
+                    <li>FAQ</li>
+                </ul>
+            </div>
+
+        </footer>
+    </body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Trade</title>
+        <meta name="description" content="This is online buying and selling platform">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'style.css' %}">
+        
+    </head>
+    <body>
+        <div class="navbar">
+            <div class="nav-title">
+                <div class="title"><strong >Trade</strong></div>
+
+                <div class="message">
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }} alert-dismissable fade show" role="alert">
+                            <strong>Message : </strong>  {{ message }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                {% endfor %}
+                </div>
+                
+            </div>
+        </div>
+        <div class="navbar">
+            
+            <div class="nav-btn-main">
+
+                {% if request.user.is_authenticated %}
+                    
+                    <h3 class="welcome">Welcome, {{ fn }}</h3>
+                    
+                    <div class="btn">
+                        <button class="nav-btn"><a href="{% url 'item:browse' %}">Browse</a></button>
+                        <button class="nav-btn"><a href="{% url 'item:new' %}">New Item</a></button>
+                        
+                        <button class="nav-btn"><a href="{% url 'dashboard:dash_index' %}">Dashboard</a></button>
+                        <button class="nav-btn"><a href="{% url 'conversation:inbox' %}">Inbox</a></button>
+
+                        <button class="nav-btn"><a href="{% url 'core:signout' %}">Sign Out</a></button> 
+                    </div>
+                                        
+
+                {% else %}
+                    <div class="btn">
+                        <button class="nav-btn"><a href="{% url 'core:signup' %}">Sign Up</a></button>
+                        <button class="nav-btn"><a href="{% url 'core:signin' %}">Sign In</a></button>
+                    </div>
+
+            
+                {% endif %}
+
+                    
+            </div>
+            
+        </div>
+
+        <div class="newest-items">
+            <h1 class="newest-items-main">Newest Items</h1>
+            <div class="item">
+                {% for item in items %}
+                    <div class="individual-item">
+                        <a href="{% url 'item:detail' item.id %}">
+                            <div >
+                                <img class="image" src="{{ item.image.url }}" >
+                            </div>
+
+                            <div class="info">
+                                <h2>{{ item.name }}</h2>
+                                <p>Price : {{ item.price }}</p>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="cat">
+            <h2 class="cat-name">Categories</h2>
+
+            <div class="category">
+                {% for category in categories %}
+                    <div>
+                        <a href="/?category={{ category.id }}">
+
+                            <div class="category-main">
+                                <h2>{{ category.name }}</h2>
+                                <p> {{ category.items.count }} items </p>
+                            </div>
+
+                        </a>
+                    </div>
+                {% endfor %}
+
+                <button class="clbtn"><a href="{% url 'core:index' %}">Clear</a></button>   
+
+            </div>
+            
+        </div>
+
+        <footer class="footer">
+
+            <div class="about">
+                <h1>About</h1>
+                <p>This is the online buying and selling platform.</p>
+            </div>
+
+            <div class="menu">
+                <h3>Menu</h3>
+                <ul>
+                    <li><a href="{% url 'core:contact' %}">contact</a></li>
+                    <li>privacy and policy</li>
+                    <li>FAQ</li>
+                </ul>
+            </div>
+
+        </footer>
+    </body>
+</html>
